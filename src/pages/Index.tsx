@@ -17,7 +17,7 @@ const Index = () => {
 
     script.onload = () => {
       const chat = document.createElement("langflow-chat");
-      chat.setAttribute("window_title", "Serenatto Assistente");
+      chat.setAttribute("window_title", "serenatto-flow");
       chat.setAttribute("flow_id", "12a115b5-baf6-49cc-a5e4-7b5bdb2d2520");
       chat.setAttribute("host_url", "http://4.168.234.223:7860");
       document.body.appendChild(chat);
