@@ -76,34 +76,3 @@
   }
 }
 
-/* Chatbot styling override - fixed bottom-left */
-langflow-chat {
-  --chat-window-width: 380px;
-  position: fixed !important;
-  bottom: 24px !important;
-  left: 24px !important;
-  right: auto !important;
-  z-index: 9999 !important;
-}
-
-langflow-chat::part(chat-window),
-langflow-chat .chat-window {
-  max-height: 70vh !important;
-  overflow-y: auto !important;
-}
-
-@media (max-width: 1024px) {
-  langflow-chat {
-    --chat-window-width: 320px;
-    bottom: 16px !important;
-    left: 16px !important;
-  }
-}
-
-@media (max-width: 640px) {
-  langflow-chat {
-    --chat-window-width: calc(100vw - 32px);
-    bottom: 12px !important;
-    left: 12px !important;
-  }
-}
