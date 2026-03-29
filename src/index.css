@@ -76,7 +76,12 @@
   }
 }
 
-/* Chatbot styling override */
+/* Chatbot styling override - fixed bottom-left */
 langflow-chat {
   --chat-window-width: 380px;
+  position: fixed !important;
+  bottom: 20px !important;
+  left: 20px !important;
+  right: auto !important;
+  z-index: 9999 !important;
 }
