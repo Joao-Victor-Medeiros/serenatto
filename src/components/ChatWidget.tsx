@@ -55,17 +55,16 @@ const ChatWidget = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${HOST_URL}/api/v1/run/${FLOW_ID}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          input_value: trimmed,
-          output_type: "chat",
-          input_type: "chat",
-        }),
+      const { data, error } = await supabase.functions.invoke('langflow-proxy', {
+        body: { input_value: trimmed },
       });
 
-      const data = await response.json();
+      if (error) throw error;
+
+      const botText =
+        data?.outputs?.[0]?.outputs?.[0]?.results?.message?.text ||
+        data?.outputs?.[0]?.outputs?.[0]?.messages?.[0]?.message ||
+        "Desculpe, não consegui processar sua mensagem. Tente novamente.";
       const botText =
         data?.outputs?.[0]?.outputs?.[0]?.results?.message?.text ||
         data?.outputs?.[0]?.outputs?.[0]?.messages?.[0]?.message ||
