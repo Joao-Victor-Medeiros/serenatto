@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Message {
   id: string;
@@ -8,9 +9,6 @@ interface Message {
   sender: "user" | "bot";
   timestamp: Date;
 }
-
-const FLOW_ID = "12a115b5-baf6-49cc-a5e4-7b5bdb2d2520";
-const HOST_URL = "http://4.168.234.223:7860";
 
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
