@@ -65,10 +65,6 @@ const ChatWidget = () => {
         data?.outputs?.[0]?.outputs?.[0]?.results?.message?.text ||
         data?.outputs?.[0]?.outputs?.[0]?.messages?.[0]?.message ||
         "Desculpe, não consegui processar sua mensagem. Tente novamente.";
-      const botText =
-        data?.outputs?.[0]?.outputs?.[0]?.results?.message?.text ||
-        data?.outputs?.[0]?.outputs?.[0]?.messages?.[0]?.message ||
-        "Desculpe, não consegui processar sua mensagem. Tente novamente.";
 
       const botMsg: Message = {
         id: (Date.now() + 1).toString(),
