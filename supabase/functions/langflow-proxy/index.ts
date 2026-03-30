@@ -7,6 +7,7 @@ const corsHeaders = {
 
 const LANGFLOW_HOST = "http://4.168.234.223:7860";
 const FLOW_ID = "12a115b5-baf6-49cc-a5e4-7b5bdb2d2520";
+const LANGFLOW_API_KEY = Deno.env.get("LANGFLOW_API_KEY");
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -16,9 +17,14 @@ Deno.serve(async (req) => {
   try {
     const body = await req.json();
 
+    const headers: Record<string, string> = { "Content-Type": "application/json" };
+    if (LANGFLOW_API_KEY) {
+      headers["x-api-key"] = LANGFLOW_API_KEY;
+    }
+
     const response = await fetch(`${LANGFLOW_HOST}/api/v1/run/${FLOW_ID}`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers,
       body: JSON.stringify({
         input_value: body.input_value,
         output_type: "chat",
