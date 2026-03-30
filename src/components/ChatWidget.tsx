@@ -54,10 +54,18 @@ const ChatWidget = () => {
 
       if (error) throw error;
 
-      const botText =
-        data?.outputs?.[0]?.outputs?.[0]?.results?.message?.text ||
-        data?.outputs?.[0]?.outputs?.[0]?.messages?.[0]?.message ||
-        "Desculpe, não consegui processar sua mensagem. Tente novamente.";
+      let botText: string;
+      
+      if (data?.detail && typeof data.detail === "string" && data.detail.includes("rate_limit")) {
+        botText = "⚠️ O assistente atingiu o limite de uso temporário. Por favor, tente novamente em algumas horas.";
+      } else if (data?.detail) {
+        botText = "Desculpe, o assistente está temporariamente indisponível. Tente novamente mais tarde.";
+      } else {
+        botText =
+          data?.outputs?.[0]?.outputs?.[0]?.results?.message?.text ||
+          data?.outputs?.[0]?.outputs?.[0]?.messages?.[0]?.message ||
+          "Desculpe, não consegui processar sua mensagem. Tente novamente.";
+      }
 
       const botMsg: Message = {
         id: (Date.now() + 1).toString(),
