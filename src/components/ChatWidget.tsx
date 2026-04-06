@@ -50,7 +50,7 @@ const ChatWidget = () => {
 
     try {
       const { data, error } = await supabase.functions.invoke('langflow-proxy', {
-        body: { input_value: trimmed },
+        body: { input_value: trimmed, session_id: sessionId },
       });
 
       if (error) throw error;
