@@ -29,6 +29,7 @@ Deno.serve(async (req) => {
         input_value: body.input_value,
         output_type: "chat",
         input_type: "chat",
+        session_id: body.session_id || crypto.randomUUID(),
       }),
     });
 
