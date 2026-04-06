@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { MessageCircle, X, Send, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
@@ -17,6 +17,7 @@ const ChatWidget = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const sessionId = useMemo(() => crypto.randomUUID(), []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -49,7 +50,7 @@ const ChatWidget = () => {
 
     try {
       const { data, error } = await supabase.functions.invoke('langflow-proxy', {
-        body: { input_value: trimmed },
+        body: { input_value: trimmed, session_id: sessionId },
       });
 
       if (error) throw error;
